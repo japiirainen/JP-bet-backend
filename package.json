@@ -1,31 +1,30 @@
 {
-  "name": "jp-bet-backend",
-  "version": "1.0.0",
-  "description": "",
-  "main": "src/index.js",
-  "scripts": {
-    "start": "node src/index.js",
-    "dev": "nodemon src/index.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/japiirainen/JP-bet-backend.git"
-  },
-  "author": "Joona Piirainen",
-  "bugs": {
-    "url": "https://github.com/japiirainen/JP-bet-backend/issues"
-  },
-  "homepage": "https://github.com/japiirainen/JP-bet-backend#readme",
-  "dependencies": {
-    "compression": "^1.7.4",
-    "eslint": "^7.1.0",
-    "eslint-config-airbnb-base": "^14.1.0",
-    "eslint-plugin-import": "^2.20.2",
-    "express": "^4.17.1",
-    "helmet": "^3.22.0",
-    "morgan": "^1.10.0"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.4"
-  }
+    "name": "jp-bet-backend",
+    "version": "1.0.0",
+    "description": "",
+    "main": "src/index.js",
+    "scripts": {
+        "start": "node src/index.js",
+        "dev": "nodemon src/index.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/japiirainen/JP-bet-backend.git"
+    },
+    "author": "Joona Piirainen",
+    "bugs": {
+        "url": "https://github.com/japiirainen/JP-bet-backend/issues"
+    },
+    "homepage": "https://github.com/japiirainen/JP-bet-backend#readme",
+    "dependencies": {
+        "compression": "^1.7.4",
+        "cors": "^2.8.5",
+        "express": "^4.17.1",
+        "helmet": "^3.22.0",
+        "morgan": "^1.10.0"
+    },
+    "devDependencies": {
+        "nodemon": "^2.0.4",
+        "prettier": "^2.0.5"
+    }
 }

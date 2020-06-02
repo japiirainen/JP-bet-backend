@@ -5,14 +5,14 @@ const helmet = require('helmet')
 
 const app = express()
 
-app.use(morgan, ('tiny'))
+app.use(morgan('dev'))
 app.use(compression())
 app.use(helmet())
 app.use(express.json())
 
 app.get('/', (req, res) => {
     res.json({
-        message: '💰Welcome to JP-BET API!💰'
+        message: '💰Welcome to JP-BET API!💰',
     })
 })
 
