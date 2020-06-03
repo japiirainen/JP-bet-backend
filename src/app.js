@@ -1,7 +1,7 @@
-const express = require('express')
-const morgan = require('morgan')
-const compression = require('compression')
-const helmet = require('helmet')
+import express from 'express'
+import morgan from 'morgan'
+import compression from 'compression'
+import helmet from 'helmet'
 
 const app = express()
 
@@ -16,4 +16,4 @@ app.get('/', (req, res) => {
     })
 })
 
-module.exports = app
+export default app
