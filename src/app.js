@@ -6,6 +6,7 @@ import helmet from 'helmet'
 import cors from 'cors'
 import connect from '../database/db'
 import { config } from './utils/config'
+import matchRouter from './recources/match/match.router'
 require('dotenv').config()
 
 const app = express()
@@ -19,8 +20,10 @@ app.use(morgan('dev'))
 app.use(compression())
 app.use(helmet())
 
+app.use('/api/v1/match', matchRouter)
+
 app.get('/api/v1', (req, res) => {
-    res.json({ welcomeMessage })
+    res.status(200).json({ welcomeMessage })
 })
 
 const start = async () => {

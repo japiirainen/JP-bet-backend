@@ -4,7 +4,7 @@ const matchSchema = new mongoose.Schema(
     {
         id: {
             type: mongoose.SchemaTypes.ObjectId,
-            required: true,
+            required: false,
             trim: true,
         },
         category: {
