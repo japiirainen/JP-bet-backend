@@ -10,7 +10,7 @@ require('dotenv').config()
 
 const app = express()
 const port = process.env.PORT
-const welcomeMessage = config.options.welcomeMessage
+const welcomeMessage = config.options.welcomemsg
 
 app.use(cors())
 app.use(json())
