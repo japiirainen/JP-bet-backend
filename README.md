@@ -2,9 +2,12 @@
 
 ## todo
 
--   [] fix connection with database
--   [] removeOne
--   [] getOne
--   [] getMany
--   [] updateOne
--   [] consider implementing user system
+*  [x] fix connection with database
+*  [x] removeOne
+*  [x] getOne
+*  [x] getMany
+*  [x] updateOne
+*  [x] consider implementing user system
+
+*  [] create auth
+*  [] implement users
