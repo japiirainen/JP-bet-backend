@@ -11,3 +11,5 @@
 
 *  [] create auth
 *  [] implement users
+*  [] betting slip?
+

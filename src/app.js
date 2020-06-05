@@ -7,6 +7,7 @@ import cors from 'cors'
 import connect from '../database/db'
 import { config } from './utils/config'
 import matchRouter from './recources/match/match.router'
+import userRouter from './recources/user/user.router'
 require('dotenv').config()
 
 const app = express()
@@ -21,6 +22,7 @@ app.use(compression())
 app.use(helmet())
 
 app.use('/api/v1/match', matchRouter)
+app.use('/api/v1/user', userRouter)
 
 app.get('/api/v1', (req, res) => {
     res.status(200).json({ welcomeMessage })
