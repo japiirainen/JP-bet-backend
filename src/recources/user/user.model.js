@@ -21,12 +21,12 @@ const userSchema = new mongoose.Schema(
         settings: {
             theme: {
                 type: String,
-                required: true,
+                required: false,
                 default: 'dark',
             },
             language: {
                 type: String,
-                required: true,
+                required: false,
                 default: 'english',
             },
         },
