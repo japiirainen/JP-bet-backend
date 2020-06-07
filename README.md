@@ -10,6 +10,8 @@
 *  [x] consider implementing user system
 
 *  [] create auth
-*  [] implement users
+*  [x] implement users
 *  [] betting slip?
+
+* [] docker setup
 
