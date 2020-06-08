@@ -12,3 +12,5 @@
 -   [] create auth
 -   [x] implement users
 -   [] betting slip?
+
+-   [] docker setup
