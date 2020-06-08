@@ -1,6 +1,13 @@
-export const config = {
+require('dotenv').config()
+
+const config = {
     options: {
-        dbUrl: 'mongodb://localhost:27017/Bettingsite',
-        welcomemsg: '💰Welcome to JP-BET API!💰',
+        dbUrl: process.env.DBURL,
+        welcomemsg: process.env.WELCOMEMESSAGE,
+    },
+    secrets: {
+        jwt: process.env.JWT_SECRET,
+        jwtExp: '100d',
     },
 }
+export default config

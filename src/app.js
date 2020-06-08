@@ -8,11 +8,12 @@ import connect from '../database/db'
 import { config } from './utils/config'
 import matchRouter from './recources/match/match.router'
 import userRouter from './recources/user/user.router'
+import { signup, signin, verify } from './utils/auth'
 require('dotenv').config()
 
 const app = express()
 const port = process.env.PORT
-const welcomeMessage = config.options.welcomemsg
+const welcomeMessage = process.env.WELCOMEMESSAGE
 
 app.use(cors())
 app.use(json())
@@ -20,6 +21,11 @@ app.use(urlencoded({ extended: true }))
 app.use(morgan('dev'))
 app.use(compression())
 app.use(helmet())
+
+app.post('/signup', signup)
+app.post('/signin', signin)
+
+app.use('/api', verify)
 
 app.use('/api/v1/match', matchRouter)
 app.use('/api/v1/user', userRouter)

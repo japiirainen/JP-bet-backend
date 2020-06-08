@@ -17,6 +17,13 @@ const userSchema = new mongoose.Schema(
             type: String,
             required: true,
             trim: true,
+            default: 'email',
+        },
+        role: {
+            type: String,
+            required: true,
+            enum: ['admin', 'user'],
+            default: 'user',
         },
         settings: {
             theme: {

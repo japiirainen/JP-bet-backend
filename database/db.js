@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
-import { config } from '../src/utils/config'
+require('dotenv').config()
 
-const connect = (url = config.options.dbUrl, opts = {}) => {
+const connect = (url = process.env.DBURL, opts = {}) => {
     return mongoose.connect(url, {
         ...opts,
         useNewUrlParser: true,
