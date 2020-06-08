@@ -14,3 +14,8 @@
 -   [] betting slip?
 
 -   [] docker setup
+
+*   [] get all bets from one user
+*   []
+*   []
+*   []

@@ -2,24 +2,12 @@ import mongoose from 'mongoose'
 
 const bsSchema = new mongoose.Schema(
     {
-        bet1: {
-            type: String,
+        choice: {
+            enum: ['1', 'X', '2'],
             required: true,
-            enum: ['selected', 'notSelected'],
-            default: 'notSelected',
         },
-        bet2: {
-            type: String,
-            required: true,
-            enum: ['selected', 'notSelected'],
-            default: 'notSelected',
-        },
-        betx: {
-            type: String,
-            required: true,
-            enum: ['selected', 'notSelected'],
-            default: 'notSelected',
-        },
+        amount: { type: Number, required: true },
+
         targetMatch: {
             type: mongoose.SchemaTypes.ObjectId,
             ref: 'match',
