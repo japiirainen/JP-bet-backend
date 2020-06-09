@@ -1,7 +1,9 @@
 import { Router } from 'express'
-import controllers from './betslip.controllers'
+import { controllers, findAllByUser } from './betslip.controllers'
 
 const router = Router()
+
+router.route('/user/:id').get(findAllByUser)
 
 router.route('/').get(controllers.getMany).post(controllers.createOne)
 
