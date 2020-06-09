@@ -11,11 +11,11 @@
 
 -   [] create auth
 -   [x] implement users
--   [] betting slip?
+-   [x] betting slip?
 
 -   [] docker setup
 
 *   [] get all bets from one user
-*   []
+*   [] error handling
 *   []
 *   []
