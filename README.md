@@ -15,7 +15,7 @@
 
 -   [] docker setup
 
-*   [] get all bets from one user
-*   [] error handling
+*   [x] get all bets from one user
+*   [x] error handling
 *   []
 *   []

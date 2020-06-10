@@ -1,9 +1,21 @@
 import { Router } from 'express'
-import { controllers, findAllByUser } from './betslip.controllers'
+import controllers from './betslip.controllers'
+import { Betslip } from './betslip.model'
 
 const router = Router()
 
-router.route('/user/:id').get(findAllByUser)
+//find all bets from one user
+router.route('/user/:id').get(async (req, res, next) => {
+	try {
+		const doc = await Betslip.find({ createdBy: req.params.id })
+
+		if (!doc) return next()
+
+		res.status(200).json({ data: doc })
+	} catch (e) {
+		return next(e)
+	}
+})
 
 router.route('/').get(controllers.getMany).post(controllers.createOne)
 
