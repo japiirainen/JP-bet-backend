@@ -3,7 +3,7 @@ import { crudControllers } from '../../utils/crud'
 
 const findAllByUser = Betslip => async (req, res) => {
 	try {
-		const doc = await Betslip.findById({ _id: req.params.id }).exec().lean()
+		const doc = await Betslip.findById({ createdBy: req.params.id }).exec().lean()
 
 		if (!doc) return res.status(400).end()
 

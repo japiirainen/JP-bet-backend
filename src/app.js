@@ -10,6 +10,7 @@ import matchRouter from './recources/match/match.router'
 import userRouter from './recources/user/user.router'
 import betSlipRouter from './recources/betslip/betslip.router'
 import { signup, signin, verify } from './utils/auth'
+import { notFound, errorHandler } from './utils/errorhandler'
 
 const app = express()
 const port = config.options.port
@@ -45,5 +46,8 @@ const start = async () => {
 		console.log(e)
 	}
 }
+
+app.use(notFound)
+app.use(errorHandler)
 
 export default start
