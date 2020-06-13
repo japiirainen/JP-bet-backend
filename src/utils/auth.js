@@ -6,7 +6,7 @@ export const newToken = user => {
 	return jwt.sign(
 		{
 			id: user.id,
-			firstName: user.username,
+			username: user.username,
 			email: user.email
 		},
 		config.secrets.jwt,
