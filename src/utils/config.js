@@ -8,7 +8,7 @@ const config = {
 	},
 	secrets: {
 		jwt: process.env.JWT_SECRET,
-		jwtExp: '100d'
+		jwtExp: '1d'
 	}
 }
 export default config

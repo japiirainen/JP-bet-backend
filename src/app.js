@@ -11,7 +11,6 @@ import userRouter from './recources/user/user.router'
 import betSlipRouter from './recources/betslip/betslip.router'
 import { signup, signin, verify } from './utils/auth'
 import { notFound, errorHandler } from './utils/errorhandler'
-import { Betslip } from './recources/betslip/betslip.model'
 const app = express()
 const port = config.options.port
 const welcomeMessage = config.options.welcomemsg
@@ -35,18 +34,6 @@ app.use('/api/v1/betslip', betSlipRouter)
 app.get('/api/v1', (req, res) => {
 	res.status(200).json({ welcomeMessage })
 })
-/* 
-app.get('/api/v1/betslip/user/:id', async (req, res, next) => {
-	try {
-		const doc = await Betslip.find({ createdBy: req.params.id })
-
-		if (!doc) return next()
-
-		res.status(200).json({ data: doc })
-	} catch (e) {
-		return next(e)
-	}
-}) */
 
 const start = async () => {
 	try {
