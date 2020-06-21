@@ -6,7 +6,7 @@ import helmet from 'helmet'
 import cors from 'cors'
 import connect from '../database/db'
 import config from './utils/config'
-import matchRouter from './recources/match/match.router'
+import { router, pubRouter } from './recources/match/match.router'
 import userRouter from './recources/user/user.router'
 import betSlipRouter from './recources/betslip/betslip.router'
 import { signup, signin, verify } from './utils/auth'
@@ -25,10 +25,12 @@ app.use(helmet())
 app.post('/signup', signup)
 app.post('/signin', signin)
 
+app.use('/api/v1/match', pubRouter)
+
 app.use('/api', verify)
 
 app.use('/api/v1/user', userRouter)
-app.use('/api/v1/match', matchRouter)
+app.use('/api/v1/match', router)
 app.use('/api/v1/betslip', betSlipRouter)
 
 app.get('/api/v1', (req, res) => {

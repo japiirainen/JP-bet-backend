@@ -2,13 +2,12 @@ import { Router } from 'express'
 import controllers from './match.controllers'
 
 const router = Router()
+const pubRouter = Router()
 
-router.route('/').post(controllers.createOne).get(controllers.getMany)
+pubRouter.route('/').get(controllers.getMany)
 
-router
-    .route('/:id')
-    .get(controllers.getOne)
-    .put(controllers.updateOne)
-    .delete(controllers.removeOne)
+router.route('/').post(controllers.createOne)
 
-export default router
+router.route('/:id').get(controllers.getOne).put(controllers.updateOne).delete(controllers.removeOne)
+
+export { router, pubRouter }
