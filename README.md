@@ -4,5 +4,5 @@
 
 
 *   [] docker setup
-*   [] 
+*   [] need to be able to update account balance
 *   []
