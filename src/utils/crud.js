@@ -33,8 +33,8 @@ export const createOne = model => async (req, res, next) => {
 
 export const updateOne = model => async (req, res, next) => {
 	try {
+		console.log(req.body)
 		const updatedDoc = await model.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true }).lean().exec()
-
 		if (!updatedDoc) return next()
 
 		res.status(200).json({ data: updatedDoc })

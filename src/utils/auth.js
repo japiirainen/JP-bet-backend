@@ -84,7 +84,6 @@ export const verify = async (req, res, next) => {
 	if (!token) return res.status(401).end()
 	try {
 		const payload = await verifyToken(token)
-		console.log('payload', payload)
 		const user = await User.findById(payload.id).select('-password').lean().exec()
 		req.user = user
 		next()
