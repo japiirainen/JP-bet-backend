@@ -60,7 +60,8 @@ export const signup = async (req, res, next) => {
 		})
 		const token = newToken(insertedUser)
 		return res.status(201).send({
-			token
+			token,
+			user: insertedUser
 		})
 	} catch (e) {
 		res.status(400)
@@ -88,7 +89,8 @@ export const signin = async (req, res) => {
 
 		const token = newToken(user)
 		return res.status(201).send({
-			token
+			token,
+			user: user
 		})
 	} catch (e) {
 		console.error(e)
