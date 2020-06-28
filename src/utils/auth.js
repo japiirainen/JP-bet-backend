@@ -1,4 +1,6 @@
-import { User } from '../recources/user/user.model'
+import {
+	User
+} from '../resources/user/user.model'
 import jwt from 'jsonwebtoken'
 import config from './config'
 import * as Yup from 'Yup'
@@ -17,14 +19,12 @@ const schema = Yup.object().shape({
 })
 
 export const newToken = user => {
-	return jwt.sign(
-		{
+	return jwt.sign({
 			id: user.id,
 			username: user.username,
 			email: user.email
 		},
-		config.secrets.jwt,
-		{
+		config.secrets.jwt, {
 			expiresIn: config.secrets.jwtExp
 		}
 	)
@@ -39,8 +39,16 @@ export const verifyToken = token =>
 	})
 
 export const signup = async (req, res, next) => {
-	const { email, password, username } = req.body
-	const createUser = { email, password, username }
+	const {
+		email,
+		password,
+		username
+	} = req.body
+	const createUser = {
+		email,
+		password,
+		username
+	}
 	try {
 		await schema.validate(createUser, {
 			abortEarly: false
@@ -51,7 +59,9 @@ export const signup = async (req, res, next) => {
 			username
 		})
 		const token = newToken(insertedUser)
-		return res.status(201).send({ token })
+		return res.status(201).send({
+			token
+		})
 	} catch (e) {
 		res.status(400)
 		next(e)
@@ -60,18 +70,26 @@ export const signup = async (req, res, next) => {
 
 export const signin = async (req, res) => {
 	if (!req.body.email || !req.body.password) {
-		res.status(400).send({ message: 'Email and password required.' })
+		res.status(400).send({
+			message: 'Email and password required.'
+		})
 	}
-	const user = await User.findOne({ email: req.body.email })
+	const user = await User.findOne({
+		email: req.body.email
+	})
 
 	if (!user) return res.status(401).end()
 
 	try {
 		const pswMatch = await user.checkPassword(req.body.password)
-		if (!pswMatch) return res.status(401).send({ message: 'Invalid password!' })
+		if (!pswMatch) return res.status(401).send({
+			message: 'Invalid password!'
+		})
 
 		const token = newToken(user)
-		return res.status(201).send({ token })
+		return res.status(201).send({
+			token
+		})
 	} catch (e) {
 		console.error(e)
 		return res.status(400).end()
