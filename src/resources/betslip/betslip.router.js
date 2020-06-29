@@ -1,7 +1,13 @@
-import { Router } from 'express'
+import {
+    Router
+} from 'express'
 import controllers from './betslip.controllers'
-import { Betslip } from './betslip.model'
-import { User } from '../user/user.model'
+import {
+    Betslip
+} from './betslip.model'
+import {
+    User
+} from '../user/user.model'
 
 const router = Router()
 
@@ -27,27 +33,33 @@ router
     .post(async (req, res, next) => {
         try {
             const user = await User.findOne({
-                _id: req.params.id,
-            })
+                    _id: req.params.id,
+                })
                 .lean()
                 .exec()
             const userBalance = user.balance
             const amount = req.body.amount
-            if (userBalance < amount) return res.status(400).end()
+            const newBalance = userBalance - amount
+            if (userBalance < amount)
+                return res.status(400).json({
+                    message: 'Balance too low!',
+                })
             const betSlip = await Betslip.create({
                 ...req.body,
             })
 
-            const updatedUser = await User.updateOne(
-                {
-                    _id: user._id,
+            console.log(amount, userBalance, newBalance, user._id)
+            const updatedUser = await User.updateOne({
+                _id: user._id,
+            }, {
+                $set: {
+                    balance: newBalance,
                 },
-                {
-                    $set: {
-                        userBalance: userBalance - amount,
-                    },
-                }
-            )
+            })
+            res.status(200).json({
+                betSlip: betSlip,
+                user: updatedUser,
+            })
         } catch (e) {
             return next(e)
         }
