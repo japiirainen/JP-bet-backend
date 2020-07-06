@@ -42,7 +42,6 @@ router
                 ...req.body,
             })
 
-            console.log(amount, userBalance, newBalance, user._id)
             const updatedUser = await User.updateOne(
                 {
                     _id: user._id,
