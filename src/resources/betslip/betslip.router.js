@@ -1,13 +1,7 @@
-import {
-    Router
-} from 'express'
+import { Router } from 'express'
 import controllers from './betslip.controllers'
-import {
-    Betslip
-} from './betslip.model'
-import {
-    User
-} from '../user/user.model'
+import { Betslip } from './betslip.model'
+import { User } from '../user/user.model'
 
 const router = Router()
 
@@ -33,8 +27,8 @@ router
     .post(async (req, res, next) => {
         try {
             const user = await User.findOne({
-                    _id: req.params.id,
-                })
+                _id: req.params.id,
+            })
                 .lean()
                 .exec()
             const userBalance = user.balance
@@ -49,16 +43,18 @@ router
             })
 
             console.log(amount, userBalance, newBalance, user._id)
-            const updatedUser = await User.updateOne({
-                _id: user._id,
-            }, {
-                $set: {
-                    balance: newBalance,
+            const updatedUser = await User.updateOne(
+                {
+                    _id: user._id,
                 },
-            })
+                {
+                    $set: {
+                        balance: newBalance,
+                    },
+                }
+            )
             res.status(200).json({
-                betSlip: betSlip,
-                user: updatedUser,
+                message: 'Success',
             })
         } catch (e) {
             return next(e)
