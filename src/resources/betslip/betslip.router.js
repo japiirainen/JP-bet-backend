@@ -38,11 +38,11 @@ router
                 return res.status(400).json({
                     message: 'Balance too low!',
                 })
-            const betSlip = await Betslip.create({
+            await Betslip.create({
                 ...req.body,
             })
 
-            const updatedUser = await User.updateOne(
+            await User.updateOne(
                 {
                     _id: user._id,
                 },
