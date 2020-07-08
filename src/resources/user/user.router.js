@@ -16,16 +16,21 @@ router.route('/incBalance/:id').put(async (req, res, next) => {
         const amount = parseFloat(req.body.amount)
         const updatedBalance = userBalance + amount
         if (!amount) return next()
-        await User.updateOne(
+        const updatedUser = await User.findOneAndUpdate(
             { _id: user._id },
             {
                 $set: {
                     balance: updatedBalance,
                 },
-            }
+            },
+            { new: true }
         )
+
+            .lean()
+            .exec()
         res.status(200).json({
             message: 'success',
+            user: updatedUser,
         })
     } catch (e) {
         return next(e)

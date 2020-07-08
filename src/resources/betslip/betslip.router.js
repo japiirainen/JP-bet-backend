@@ -42,7 +42,7 @@ router
                 ...req.body,
             })
 
-            await User.updateOne(
+            const updatedUser = await User.findOneAndUpdate(
                 {
                     _id: user._id,
                 },
@@ -50,10 +50,14 @@ router
                     $set: {
                         balance: newBalance,
                     },
-                }
+                },
+                { new: true }
             )
+                .lean()
+                .exec()
             res.status(200).json({
                 message: 'Success',
+                user: updatedUser,
             })
         } catch (e) {
             return next(e)
