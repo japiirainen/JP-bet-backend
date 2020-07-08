@@ -13,7 +13,7 @@ router.route('/incBalance/:id').put(async (req, res, next) => {
             .lean()
             .exec()
         const userBalance = user.balance
-        const amount = req.body.amount
+        const amount = parseFloat(req.body.amount)
         const updatedBalance = userBalance + amount
         if (!amount) return next()
         await User.updateOne(
