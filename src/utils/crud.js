@@ -40,8 +40,8 @@ export const updateOne = (model) => async (req, res, next) => {
         if (!updatedDoc) return res.status(400).next()
 
         res.status(200).json({
-            data: req.body,
-            message: 'successful PUT request.',
+            message: 'success',
+            data: updatedDoc,
         })
     } catch (e) {
         return next(e)
