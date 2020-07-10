@@ -14,10 +14,14 @@ router
             const doc = await Betslip.find({
                 createdBy: req.params.id,
             })
+            if (!doc) {
+                res.status(200).json({
+                    bet: null,
+                    matchList: [],
+                })
+            }
             const ids = doc.map((item) => item.targetMatch)
             const matchList = await Match.find().where('_id').in(ids).exec()
-
-            if (!doc) return next()
 
             res.status(200).json({
                 bet: doc,
