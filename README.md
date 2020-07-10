@@ -2,6 +2,8 @@
 
 ## todo
 
+-   [] password hash on update user
+
 -   [] docker setup
 
 -   [] need to be able to update account balance
