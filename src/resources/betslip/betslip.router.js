@@ -2,6 +2,7 @@ import { Router } from 'express'
 import controllers from './betslip.controllers'
 import { Betslip } from './betslip.model'
 import { User } from '../user/user.model'
+import { Match } from '../match/match.model'
 
 const router = Router()
 
@@ -13,11 +14,14 @@ router
             const doc = await Betslip.find({
                 createdBy: req.params.id,
             })
+            const ids = doc.map((item) => item.targetMatch)
+            const matchList = await Match.find().where('_id').in(ids).exec()
 
             if (!doc) return next()
 
             res.status(200).json({
-                data: doc,
+                bet: doc,
+                matchList: matchList,
             })
         } catch (e) {
             return next(e)
