@@ -33,15 +33,24 @@ export const createOne = (model) => async (req, res, next) => {
 
 export const updateOne = (model) => async (req, res, next) => {
     try {
-        const updatedDoc = await model
-            .findOneAndUpdate({ _id: req.params.id }, req.body, { new: true })
-            .lean()
-            .exec()
-        if (!updatedDoc) return res.status(400).next()
+        const doc = await model.findById(req.params.id)
+        if (doc) {
+            await model.update({ _id: req.params.id }, req.body)
+            return res.status(200).json({
+                message: 'success',
+                data: await model.findById(req.params.id),
+            })
+        }
+
+        // const updatedDoc = await model
+        //     .findOneAndUpdate({ _id: req.params.id }, req.body, { new: true })
+        //     .lean()
+        //     .exec()
+        // if (!updatedDoc) return res.status(400).next()
 
         res.status(200).json({
             message: 'success',
-            data: updatedDoc,
+            data: doc,
         })
     } catch (e) {
         return next(e)

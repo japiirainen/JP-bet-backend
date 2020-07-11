@@ -66,13 +66,25 @@ userSchema.pre('save', function (next) {
     if (!this.isModified('password')) {
         return next()
     }
-
+    console.log('im here')
     bcrypt.hash(this.password, 8, (err, hash) => {
         if (err) {
             return next(err)
         }
 
         this.password = hash
+        next()
+    })
+})
+
+userSchema.pre('update', function (next) {
+    if (!this._update.password) return next()
+    bcrypt.hash(this._update.password, 8, (err, hash) => {
+        if (err) {
+            return next(err)
+        }
+
+        this._update.password = hash
         next()
     })
 })

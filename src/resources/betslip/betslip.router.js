@@ -20,6 +20,7 @@ router
                     matchList: [],
                 })
             }
+
             const ids = doc.map((item) => item.targetMatch)
             const matchList = await Match.find().where('_id').in(ids).exec()
 
