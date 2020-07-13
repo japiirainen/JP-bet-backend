@@ -11,22 +11,29 @@ router
     .route('/user/:id')
     .get(async (req, res, next) => {
         try {
-            const doc = await Betslip.find({
+            const bets = await Betslip.find({
                 createdBy: req.params.id,
             })
-            if (!doc) {
+            if (!bets) {
                 res.status(200).json({
                     bet: null,
                     matchList: [],
                 })
             }
 
-            const ids = doc.map((item) => item.targetMatch)
+            const ids = bets.map((item) => item.targetMatch)
             const matchList = await Match.find().where('_id').in(ids).exec()
 
+            const betList = bets.map((bet) => ({
+                bet,
+                targetMatch: matchList.find(
+                    (match) =>
+                        match._id.toString() === bet.targetMatch.toString()
+                ),
+            }))
+
             res.status(200).json({
-                bet: doc,
-                matchList: matchList,
+                betList: betList,
             })
         } catch (e) {
             return next(e)
