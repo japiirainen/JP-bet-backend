@@ -4,11 +4,16 @@ const betSlipSchema = new mongoose.Schema(
     {
         choice: {
             type: String,
-            enum: ['1', 'X', '2', 'not selected'],
+            enum: ['team1', 'tie', 'team2'],
             default: 'not selected',
             required: true,
         },
         amount: { type: Number, required: true },
+
+        projectedWin: {
+            type: Number,
+            required: false,
+        },
 
         closed: {
             type: Boolean,

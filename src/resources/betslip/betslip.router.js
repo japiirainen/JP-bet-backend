@@ -33,7 +33,7 @@ router
             }))
 
             res.status(200).json({
-                betList: betList,
+                data: betList,
             })
         } catch (e) {
             return next(e)
@@ -47,6 +47,7 @@ router
             })
                 .lean()
                 .exec()
+
             const userBalance = user.balance
             const amount = req.body.amount
             const newBalance = userBalance - amount
