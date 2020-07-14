@@ -8,11 +8,12 @@ const router = Router()
 
 //find all open bets from one user
 router
-    .route('/user/:id')
+    .route('/user/:id/:closed')
     .get(async (req, res, next) => {
         try {
             const bets = await Betslip.find({
                 createdBy: req.params.id,
+                closed: req.params.closed === 'true',
             })
             if (!bets) {
                 res.status(200).json({
@@ -20,12 +21,11 @@ router
                     matchList: [],
                 })
             }
-            const openBets = bets.filter((bet) => bet.closed === false)
 
-            const ids = openBets.map((item) => item.targetMatch)
+            const ids = bets.map((item) => item.targetMatch)
             const matchList = await Match.find().where('_id').in(ids).exec()
 
-            const betList = openBets.map((bet) => ({
+            const betList = bets.map((bet) => ({
                 bet,
                 targetMatch: matchList.find(
                     (match) =>
