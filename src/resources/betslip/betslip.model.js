@@ -20,6 +20,9 @@ const betSlipSchema = new mongoose.Schema(
             required: true,
             default: false,
         },
+        result: {
+            type: String,
+        },
 
         targetMatch: {
             type: mongoose.SchemaTypes.ObjectId,

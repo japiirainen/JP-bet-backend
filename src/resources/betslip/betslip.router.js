@@ -6,7 +6,7 @@ import { Match } from '../match/match.model'
 
 const router = Router()
 
-//find all open bets from one user
+//find all bets from one user
 router
     .route('/user/:id/:closed')
     .get(async (req, res, next) => {
@@ -52,6 +52,7 @@ router
             const userBalance = user.balance
             const amount = req.body.amount
             const newBalance = userBalance - amount
+            //todo: get mach and calculate projected win
             if (userBalance < amount)
                 return res.status(400).json({
                     message: 'Balance too low!',

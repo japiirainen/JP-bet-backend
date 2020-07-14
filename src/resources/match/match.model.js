@@ -1,5 +1,10 @@
 import mongoose from 'mongoose'
 
+const productSchema = new mongoose.Schema({
+    name: { type: String, required: true },
+    result: { type: String, required: true },
+})
+
 const matchSchema = new mongoose.Schema(
     {
         id: {
@@ -39,6 +44,7 @@ const matchSchema = new mongoose.Schema(
         matchDate: {
             type: Number,
         },
+        products: [productSchema],
     },
     { timestamps: true }
 )
