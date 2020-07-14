@@ -6,7 +6,7 @@ import { Match } from '../match/match.model'
 
 const router = Router()
 
-//find all bets from one user
+//find all open bets from one user
 router
     .route('/user/:id')
     .get(async (req, res, next) => {
@@ -20,11 +20,12 @@ router
                     matchList: [],
                 })
             }
+            const openBets = bets.filter((bet) => bet.closed === false)
 
-            const ids = bets.map((item) => item.targetMatch)
+            const ids = openBets.map((item) => item.targetMatch)
             const matchList = await Match.find().where('_id').in(ids).exec()
 
-            const betList = bets.map((bet) => ({
+            const betList = openBets.map((bet) => ({
                 bet,
                 targetMatch: matchList.find(
                     (match) =>
