@@ -42,9 +42,22 @@ const matchSchema = new mongoose.Schema(
             },
         },
         matchDate: {
-            type: Number,
+            type: String,
         },
-        products: [productSchema],
+        closed: {
+            type: Boolean,
+            required: true,
+            default: false,
+        },
+        products: {
+            onextwo: {
+                result: {
+                    type: String,
+                    enum: ['team1', 'tie', 'team2', 'not resolved'],
+                    default: 'not resolved',
+                },
+            },
+        },
     },
     { timestamps: true }
 )

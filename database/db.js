@@ -7,7 +7,7 @@ const connect = (url = process.env.DBURL, opts = {}) => {
         useNewUrlParser: true,
         useUnifiedTopology: true,
         useCreateIndex: true,
-        useFindAndModify: true,
+        useFindAndModify: false,
     })
 }
 
