@@ -49,6 +49,16 @@ const matchSchema = new mongoose.Schema(
             required: true,
             default: false,
         },
+        teamLogos: {
+            team1Logo: {
+                type: String,
+                trim: true,
+            },
+            team2Logo: {
+                type: String,
+                trim: true,
+            },
+        },
         products: {
             onextwo: {
                 result: {

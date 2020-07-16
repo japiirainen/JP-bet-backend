@@ -40,14 +40,13 @@ router.route('/result/:id').put(async (req, res, next) => {
             .where('targetMatch')
             .in(req.params.id)
             .exec()
-
-        // const result = bets.map(
-        //     (bet) => bet.choice === req.body.products.onextwo.result
-        // )
-        // console.log(result)
+        if (bets.length === 0)
+            return res.status(200).send({
+                message: 'no bets for this match',
+            })
 
         //update bets to be closed + set result
-        const updatedBets = await Betslip.updateMany(
+        await Betslip.updateMany(
             {
                 targetMatch: req.params.id,
             },
@@ -61,16 +60,22 @@ router.route('/result/:id').put(async (req, res, next) => {
         )
             .lean()
             .exec()
+        //update user balances if won
+        // const updateUser = await User.updateOne(
+        //     {
+        //         _id: bet.createdBy,
+        //     },
+        //     {
+        //         $inc: {
+        //             balance: -bet.projectedWin,
+        //         },
+        //     }
+        // )
 
-        if (updatedBets.length === 0)
-            return res.status(200).send({
-                message: 'no bets for this match',
-            })
+        // console.log(users)
 
         res.status(200).send({
-            bets,
             closedMatch,
-            updatedBets,
         })
     } catch (e) {
         return next(e)
