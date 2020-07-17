@@ -1,6 +1,6 @@
-import { processBet } from '../src/resources/match/match.router'
-import { expect } from 'chai'
-import connect from '../database/db'
+const { processBet } = require('../src/resources/match/match.router')
+const { expect } = require('chai')
+const connect = require('../database/db')
 require('dotenv').config()
 
 describe('Match router', () => {

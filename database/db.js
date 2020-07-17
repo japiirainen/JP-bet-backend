@@ -11,7 +11,7 @@ function connect(url = process.env.DBURL) {
         })
         var db = mongoose.connection
 
-        db.on('error', err => {
+        db.on('error', (err) => {
             console.log(err)
         })
         db.once('connected', () => {
