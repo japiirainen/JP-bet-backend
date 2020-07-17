@@ -1,4 +1,4 @@
-import mongoose from 'mongoose'
+const mongoose = require('mongoose')
 
 const betSlipSchema = new mongoose.Schema(
     {
@@ -40,4 +40,6 @@ const betSlipSchema = new mongoose.Schema(
     { timestamps: true }
 )
 
-export const Betslip = mongoose.model('betslip', betSlipSchema, 'betslip')
+module.exports = {
+    Betslip: mongoose.model('betslip', betSlipSchema, 'betslip'),
+}

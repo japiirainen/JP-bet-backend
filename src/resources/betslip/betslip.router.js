@@ -1,13 +1,13 @@
-import { Router } from 'express'
-import controllers from './betslip.controllers'
-import { Betslip } from './betslip.model'
-import { User } from '../user/user.model'
-import { Match } from '../match/match.model'
-import { calculateReturn } from '../../utils/functions'
+const { Router } = require('express')
+const controllers = require('./betslip.controllers')
+const { Betslip } = require('./betslip.model')
+const { User } = require('../user/user.model')
+const { Match } = require('../match/match.model')
+const { calculateReturn } = require('../../utils/functions')
 
 const router = Router()
 
-//find all bets from one user
+//find all bets = requireone user)
 router.route('/user/:id/:closed').get(async (req, res, next) => {
     try {
         const bets = await Betslip.find({
@@ -100,4 +100,4 @@ router
     .put(controllers.updateOne)
     .delete(controllers.removeOne)
 
-export default router
+module.exports = router

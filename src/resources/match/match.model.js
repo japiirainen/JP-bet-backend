@@ -1,4 +1,4 @@
-import mongoose from 'mongoose'
+const mongoose = require('mongoose')
 
 const productSchema = new mongoose.Schema({
     name: { type: String, required: true },
@@ -72,4 +72,6 @@ const matchSchema = new mongoose.Schema(
     { timestamps: true }
 )
 
-export const Match = mongoose.model('match', matchSchema, 'csgomatches')
+module.exports = {
+    Match: mongoose.model('match', matchSchema, 'csgomatches'),
+}
