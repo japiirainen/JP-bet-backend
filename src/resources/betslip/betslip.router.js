@@ -32,7 +32,7 @@ router.route('/user/:id/:closed').get(async (req, res, next) => {
         }))
 
         res.status(200).json({
-            data: betList,
+            data: betList.reverse(),
         })
     } catch (e) {
         return next(e)
