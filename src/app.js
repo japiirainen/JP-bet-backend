@@ -12,34 +12,14 @@ const betSlipRouter = require('./resources/betslip/betslip.router')
 const { signup, signin, verify } = require('./utils/auth')
 const { notFound, errorHandler } = require('./utils/errorhandler')
 
+const dbConnect = require('../database/db')
 require('dotenv').config()
 
 const app = express()
-
 const port = config.options.port
 const welcomeMessage = config.options.welcomemsg
 
-mongoose.connect(process.env.DBURL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true,
-    useFindAndModify: false,
-})
-
-const db = mongoose.connection
-
-db.on('error', (err) => {
-    console.log(err)
-})
-db.once('connected', () => {
-    console.log('Mongo connected')
-})
-db.on('reconnected', () => {
-    console.log('Mongo re-connected')
-})
-db.on('disconnected', () => {
-    console.log('Mongo disconnected')
-})
+dbConnect(process.env.DBURL || 'mongodb://localhost:27017')
 
 app.use(cors())
 app.use(json())

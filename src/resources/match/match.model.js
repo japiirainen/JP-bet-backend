@@ -72,4 +72,6 @@ const matchSchema = new mongoose.Schema(
     { timestamps: true }
 )
 
-module.exports = Match = mongoose.model('match', matchSchema, 'csgomatches')
+module.exports = {
+    Match: mongoose.model('match', matchSchema, 'csgomatches'),
+}

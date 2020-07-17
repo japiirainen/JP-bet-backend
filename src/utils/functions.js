@@ -5,4 +5,6 @@ const calculateReturn = (odds, amount) => {
     return result
 }
 
-module.exports = calculateReturn
+module.exports = {
+    calculateReturn,
+}
