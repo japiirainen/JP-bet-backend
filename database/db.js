@@ -1,9 +1,8 @@
-import mongoose from 'mongoose'
+const mongoose = require('mongoose')
 require('dotenv').config()
 
 const connect = (url = process.env.DBURL, opts = {}) => {
     return mongoose.connect(url, {
-        ...opts,
         useNewUrlParser: true,
         useUnifiedTopology: true,
         useCreateIndex: true,
@@ -11,4 +10,4 @@ const connect = (url = process.env.DBURL, opts = {}) => {
     })
 }
 
-export default connect
+module.exports = connect

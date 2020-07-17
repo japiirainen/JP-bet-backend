@@ -1,4 +1,4 @@
-import { crudControllers } from '../../utils/crud'
-import { Match } from './match.model'
+const crudControllers = require('../../utils/crud')
+const { Match } = require('./match.model')
 
-export default crudControllers(Match)
+module.exports = crudControllers(Match)

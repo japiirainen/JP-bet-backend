@@ -1,9 +1,8 @@
-import { Router } from 'express'
-import controllers from './match.controllers'
-import { ObjectId } from 'mongoose'
-import { Match } from './match.model'
-import { Betslip } from '../betslip/betslip.model'
-import { User } from '../user/user.model'
+const { Router } = require('express')
+const controllers = require('./match.controllers')
+const { Match } = require('./match.model')
+const { Betslip } = require('../betslip/betslip.model')
+const { User } = require('../user/user.model')
 
 const router = Router()
 const pubRouter = Router()
@@ -21,7 +20,7 @@ pubRouter.route('/:closed').get(async (req, res, next) => {
     }
 })
 
-export async function processBet(result, bet) {
+const processBet = async (result, bet) => {
     async function updateBet() {
         return Betslip.updateOne(
             {
@@ -98,4 +97,4 @@ router
     .put(controllers.updateOne)
     .delete(controllers.removeOne)
 
-export { router, pubRouter }
+module.exports = { router, pubRouter, processBet }

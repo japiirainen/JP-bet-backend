@@ -1,6 +1,6 @@
-import { Router } from 'express'
-import controllers from './user.controllers'
-import { User } from './user.model'
+const { Router } = require('express')
+const controllers = require('./user.controllers')
+const { User } = require('./user.model')
 
 const router = Router()
 
@@ -45,4 +45,4 @@ router
     .put(controllers.updateOne)
     .delete(controllers.removeOne)
 
-export default router
+module.exports = router

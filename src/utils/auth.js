@@ -1,7 +1,7 @@
-import { User } from '../resources/user/user.model'
-import jwt from 'jsonwebtoken'
-import config from './config'
-import * as Yup from 'Yup'
+const { User } = require('../resources/user/user.model')
+const jwt = require('jsonwebtoken')
+const config = require('./config')
+const Yup = require('yup')
 
 const schema = Yup.object().shape({
     email: Yup.string().trim().email().required(),
@@ -18,7 +18,7 @@ const schema = Yup.object().shape({
         .required(),
 })
 
-export const newToken = (user) => {
+const newToken = (user) => {
     return jwt.sign(
         {
             id: user.id,
@@ -32,7 +32,7 @@ export const newToken = (user) => {
     )
 }
 
-export const verifyToken = (token) =>
+const verifyToken = (token) =>
     new Promise((resolve, reject) => {
         jwt.verify(token, config.secrets.jwt, (err, payload) => {
             if (err) return reject(err)
@@ -40,7 +40,7 @@ export const verifyToken = (token) =>
         })
     })
 
-export const signup = async (req, res, next) => {
+const signup = async (req, res, next) => {
     const { email, password, username, firstname, lastname } = req.body
     const createUser = {
         email,
@@ -71,7 +71,7 @@ export const signup = async (req, res, next) => {
     }
 }
 
-export const signin = async (req, res) => {
+const signin = async (req, res) => {
     if (!req.body.email || !req.body.password) {
         res.status(400).send({
             message: 'Email and password required.',
@@ -101,7 +101,7 @@ export const signin = async (req, res) => {
     }
 }
 
-export const verify = async (req, res, next) => {
+const verify = async (req, res, next) => {
     if (!req.headers.authorization) return res.status(401).end()
     const token = req.headers.authorization.split('Bearer ')[1]
     if (!token) return res.status(401).end()
@@ -117,4 +117,11 @@ export const verify = async (req, res, next) => {
         console.error(e)
         return res.status(401).end()
     }
+}
+
+module.exports = {
+    verifyToken,
+    signup,
+    signin,
+    verify,
 }

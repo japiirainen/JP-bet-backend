@@ -1,4 +1,4 @@
-import { Betslip } from './betslip.model'
-import { crudControllers } from '../../utils/crud'
+const crudControllers = require('../../utils/crud')
+const { Betslip } = require('./betslip.model')
 
-export default crudControllers(Betslip)
+module.exports = crudControllers(Betslip)

@@ -1,4 +1,4 @@
-import { crudControllers } from '../../utils/crud'
-import { User } from './user.model'
+const crudControllers = require('../../utils/crud')
+const { User } = require('./user.model')
 
-export default crudControllers(User)
+module.exports = crudControllers(User)

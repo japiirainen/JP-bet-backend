@@ -1,19 +1,45 @@
-import express from 'express'
-import morgan from 'morgan'
-import compression from 'compression'
-import { json, urlencoded } from 'body-parser'
-import helmet from 'helmet'
-import cors from 'cors'
-import connect from '../database/db'
-import config from './utils/config'
-import { router, pubRouter } from './resources/match/match.router'
-import userRouter from './resources/user/user.router'
-import betSlipRouter from './resources/betslip/betslip.router'
-import { signup, signin, verify } from './utils/auth'
-import { notFound, errorHandler } from './utils/errorhandler'
+const express = require('express')
+const mongoose = require('mongoose')
+const morgan = require('morgan')
+const compression = require('compression')
+const { json, urlencoded } = require('body-parser')
+const helmet = require('helmet')
+const cors = require('cors')
+const config = require('./utils/config')
+const { router, pubRouter } = require('./resources/match/match.router')
+const userRouter = require('./resources/user/user.router')
+const betSlipRouter = require('./resources/betslip/betslip.router')
+const { signup, signin, verify } = require('./utils/auth')
+const { notFound, errorHandler } = require('./utils/errorhandler')
+
+require('dotenv').config()
+
 const app = express()
+
 const port = config.options.port
 const welcomeMessage = config.options.welcomemsg
+
+mongoose.connect(process.env.DBURL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    useFindAndModify: false,
+})
+
+const db = mongoose.connection
+
+db.on('error', (err) => {
+    console.log(err)
+})
+db.once('connected', () => {
+    console.log('Mongo connected')
+})
+db.on('reconnected', () => {
+    console.log('Mongo re-connected')
+})
+db.on('disconnected', () => {
+    console.log('Mongo disconnected')
+})
 
 app.use(cors())
 app.use(json())
@@ -33,13 +59,12 @@ app.use('/api/v1/user', userRouter)
 app.use('/api/v1/match', router)
 app.use('/api/v1/betslip', betSlipRouter)
 
-app.get('/api/v1', (req, res) => {
+app.get('/api/v1', (_req, res) => {
     res.status(200).json({ welcomeMessage })
 })
 
 const start = async () => {
     try {
-        await connect()
         app.listen(port, () => {
             console.log(`Server running at http://localhost:${port}/api/v1`)
         })
@@ -51,4 +76,4 @@ const start = async () => {
 app.use(notFound)
 app.use(errorHandler)
 
-export default start
+module.exports = start
