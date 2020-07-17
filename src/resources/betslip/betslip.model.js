@@ -40,4 +40,6 @@ const betSlipSchema = new mongoose.Schema(
     { timestamps: true }
 )
 
-module.exports = Betslip = mongoose.model('betslip', betSlipSchema, 'betslip')
+module.exports = {
+    Betslip: mongoose.model('betslip', betSlipSchema, 'betslip'),
+}

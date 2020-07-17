@@ -102,4 +102,6 @@ userSchema.methods.checkPassword = function (password) {
     })
 }
 
-module.exports = User = mongoose.model('user', userSchema, 'users')
+module.exports = {
+    User: mongoose.model('user', userSchema, 'users'),
+}
