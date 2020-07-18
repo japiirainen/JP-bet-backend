@@ -1,40 +1,14 @@
 const { Router } = require('express')
-const { Deposit } = require('./deposit.model')
-const { User } = require('../user/user.model')
+const { processDeposit, getDeposits } = require('./deposit.helpers')
 
 const depositRouter = Router()
-
-const processDeposit = async (userID, amount) => {
-    async function updateUser() {
-        const updatedUser = User.findOneAndUpdate(
-            {
-                _id: userID,
-            },
-            {
-                $inc: {
-                    balance: +amount,
-                },
-            },
-            { new: true }
-        )
-            .lean()
-            .exec()
-        return updatedUser
-    }
-    async function createDeposit() {
-        Deposit.create({ amount: amount, user: userID })
-    }
-
-    const results = await Promise.all([updateUser(), createDeposit()])
-    return results
-}
 
 depositRouter
     .route('/user/:id')
     .post(async (req, res, next) => {
         try {
             const doc = await processDeposit(req.params.id, req.body.amount)
-
+            if (!doc) return next()
             res.status(200).json({
                 user: doc,
             })
@@ -42,9 +16,18 @@ depositRouter
             next(e)
         }
     })
-    .get()
+    .get(async (req, res, next) => {
+        try {
+            const data = await getDeposits(req.params.id)
+            if (!data) return next()
+            res.status(200).json({
+                data,
+            })
+        } catch (e) {
+            next(e)
+        }
+    })
 
 module.exports = {
     depositRouter,
-    processDeposit,
 }

@@ -7,7 +7,7 @@ const { calculateReturn } = require('../../utils/functions')
 
 const router = Router()
 
-//find all bets = require one user
+//find all bets by one user
 router.route('/user/:id/:closed').get(async (req, res, next) => {
     try {
         const bets = await Betslip.find({
