@@ -22,7 +22,7 @@ depositRouter
             const data = await getDeposits(req.params.id)
             if (!data) return next()
             res.status(200).json({
-                data,
+                data: data.reverse(),
             })
         } catch (e) {
             next(e)
