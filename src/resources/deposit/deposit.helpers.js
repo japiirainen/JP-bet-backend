@@ -23,7 +23,7 @@ const processDeposit = async (userID, amount) => {
     }
 
     const results = await Promise.all([updateUser(), createDeposit()])
-    return results
+    return results[0]
 }
 
 const getDeposits = async (userID) => {

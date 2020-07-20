@@ -10,6 +10,7 @@ depositRouter
             const doc = await processDeposit(req.params.id, req.body.amount)
             if (!doc) return next()
             res.status(200).json({
+                message: 'Deposit successful',
                 user: doc,
             })
         } catch (e) {
