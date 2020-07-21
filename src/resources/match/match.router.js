@@ -88,13 +88,21 @@ router.route('/result/:id').put(async (req, res, next) => {
         return next(e)
     }
 })
+router.route('/id/:id').get(async (res, req, next) => {
+    try {
+        const match = await Match.findById(req.params.id)
+        console.log(match)
+        if (!match) return next()
+        res.status(200).json({
+            match,
+        })
+    } catch (e) {
+        return next(e)
+    }
+})
 
 router.route('/').post(controllers.createOne)
 
-router
-    .route('/:id')
-    .get(controllers.getOne)
-    .put(controllers.updateOne)
-    .delete(controllers.removeOne)
+router.route('/:id').put(controllers.updateOne).delete(controllers.removeOne)
 
 module.exports = { router, pubRouter, processBet }

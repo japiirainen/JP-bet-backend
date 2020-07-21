@@ -1,4 +1,4 @@
-const getOne = model => async (req, res, next) => {
+const getOne = (model) => async (req, res, next) => {
     try {
         const doc = await model.findOne({ _id: req.params.id }).lean().exec()
 
@@ -10,7 +10,7 @@ const getOne = model => async (req, res, next) => {
     }
 }
 
-const getMany = model => async (req, res, next) => {
+const getMany = (model) => async (req, res, next) => {
     try {
         const docs = await model.find().lean().exec()
 
@@ -22,7 +22,7 @@ const getMany = model => async (req, res, next) => {
     }
 }
 
-const createOne = model => async (req, res, next) => {
+const createOne = (model) => async (req, res, next) => {
     try {
         const doc = await model.create({ ...req.body })
         res.status(200).json({ data: doc })
@@ -31,7 +31,7 @@ const createOne = model => async (req, res, next) => {
     }
 }
 
-const updateOne = model => async (req, res, next) => {
+const updateOne = (model) => async (req, res, next) => {
     try {
         const doc = await model.findById(req.params.id)
         if (doc) {
@@ -57,7 +57,7 @@ const updateOne = model => async (req, res, next) => {
     }
 }
 
-const removeOne = model => async (req, res, next) => {
+const removeOne = (model) => async (req, res, next) => {
     try {
         const removed = await model
             .findOneAndRemove({ _id: req.params.id })
@@ -72,7 +72,7 @@ const removeOne = model => async (req, res, next) => {
     }
 }
 
-module.exports = model => ({
+module.exports = (model) => ({
     createOne: createOne(model),
     getOne: getOne(model),
     getMany: getMany(model),
