@@ -2,4 +2,6 @@
 
 ## todo
 
--   [] docker setup
+-   [x] docker setup
+
+-   [ ] password reset
