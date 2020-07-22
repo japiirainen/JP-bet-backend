@@ -62,6 +62,20 @@ const userSchema = new mongoose.Schema(
     }
 )
 
+const passWordResetSchema = mongoose.Schema(
+    {
+        id: {
+            type: String,
+            required: true,
+        },
+        email: {
+            type: String,
+            required: true,
+        },
+    },
+    { timestamps: true }
+)
+
 userSchema.pre('save', function (next) {
     if (!this.isModified('password')) {
         return next()
@@ -104,4 +118,5 @@ userSchema.methods.checkPassword = function (password) {
 
 module.exports = {
     User: mongoose.model('user', userSchema, 'users'),
+    Reset: mongoose.model('reset', passWordResetSchema, 'resets'),
 }

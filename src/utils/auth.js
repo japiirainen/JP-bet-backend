@@ -1,4 +1,4 @@
-const { User } = require('../resources/user/user.model')
+const { User, Reset } = require('../resources/user/user.model')
 const jwt = require('jsonwebtoken')
 const config = require('./config')
 const Yup = require('yup')
@@ -118,10 +118,52 @@ const verify = async (req, res, next) => {
         return res.status(401).end()
     }
 }
+//post
+const forgotPassword = async (req, res, next) => {
+    try {
+        const user = await await User.findOne(req.body.email)
+        if (!user) return next()
+
+        const doc = {
+            id: user._id,
+            email: user.email,
+        }
+        await Reset.create(doc)
+        //sendResetLink(user.email, user._id)
+        res.status(200).json({ message: 'success' })
+    } catch (e) {
+        next(e)
+    }
+}
+//put
+const resetPassword = async (req, res, next) => {
+    try {
+        const resetRequest = Reset.findOne(req.body.id)
+        if (!resetRequest) return next()
+
+        const user = await User.updateOne(
+            { email: resetRequest.email },
+
+            {
+                $set: {
+                    password: req.body.password,
+                },
+            }
+        )
+        res.status(200).json({
+            message: 'success',
+            user,
+        })
+    } catch (e) {
+        next(e)
+    }
+}
 
 module.exports = {
     verifyToken,
     signup,
     signin,
     verify,
+    forgotPassword,
+    resetPassword,
 }
