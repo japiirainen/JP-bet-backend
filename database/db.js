@@ -23,11 +23,6 @@ function connect(url = process.env.DBURL) {
         db.on('disconnected', () => {
             console.log('Mongo disconnected')
         })
-
-        db.once('open', function () {
-            console.log(`Mongo is open!`)
-            resolve()
-        })
     })
 }
 

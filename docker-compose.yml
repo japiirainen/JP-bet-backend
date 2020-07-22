@@ -1,41 +1,15 @@
 version: '3'
-
 services:
-    reverse-proxy:
-        image: traefik # The official Traefik docker image
-        command: --api --docker.exposedbydefault=false # Enables the web UI and tells Træfik to listen to docker, without exposing by default
-        ports:
-            - '80:80' # The HTTP port
-            - '8080:8080' # The Web UI (enabled by --api)
-        volumes:
-            - /var/run/docker.sock:/var/run/docker.sock # So that Traefik can listen to the Docker events
-
-    db:
-        image: mysql:5
-        restart: always
-        environment:
-            - MYSQL_ROOT_PASSWORD
-            - MYSQL_DATABASE
-
-    redis:
-        image: redis:alpine
-
     app:
-        build:
-            dockerfile: Dockerfile-dev
-            context: .
-        command: npm run dev
-        volumes:
-            - './src:/home/node/app/src'
-        environment:
-            - DB_HOST=db
-            - DB_NAME=${MYSQL_DATABASE}
-            - DB_USER=root
-            - DB_PASSWORD=${MYSQL_ROOT_PASSWORD}
-            - REDIS_HOST=redis
-        labels:
-            - 'traefik.enable=true'
-            - 'traefik.frontend.rule=Host:app.test.localhost.tv'
-        depends_on:
+        container_name: betting-site-backend-1
+        restart: always
+        build: .
+        ports:
+            - '1998:1998'
+        links:
             - db
-            - redis
+    db:
+        container_name: betting-site-db-1
+        image: mongo
+        ports:
+            - '27017:27017'

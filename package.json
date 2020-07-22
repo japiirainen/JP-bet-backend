@@ -1,8 +1,9 @@
 {
     "name": "jp-bet-backend",
-    "version": "1.0.0",
+    "version": "1.0.01",
     "description": "",
     "main": "src/index.js",
+    "license": "MIT",
     "scripts": {
         "start": "node src/index.js",
         "dev": "nodemon src/index.js",
