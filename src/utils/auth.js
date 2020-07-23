@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken')
 const config = require('./config')
 const Yup = require('yup')
 const sendResetLink = require('./email')
+const bcrypt = require('bcrypt')
 
 const schema = Yup.object().shape({
     email: Yup.string().trim().email().required(),
@@ -142,21 +143,22 @@ const forgotPassword = async (req, res, next) => {
 //put
 const resetPassword = async (req, res, next) => {
     try {
-        const resetRequest = Reset.findOne(req.body.id)
-        if (!resetRequest) return next()
+        let resetRequest = await Reset.findOne({ id: req.body.id })
+            .lean()
+            .exec()
+        if (!resetRequest || resetRequest.expired === true) return next()
+        await Reset.updateOne(
+            { _id: resetRequest._id },
+            { $set: { expired: true } }
+        )
+        const password = await bcrypt.hash(req.body.password, 8)
 
-        const user = await User.updateOne(
+        await User.updateOne(
             { email: resetRequest.email },
-
-            {
-                $set: {
-                    password: req.body.password,
-                },
-            }
+            { $set: { password: password } }
         )
         res.status(200).json({
             message: 'success',
-            user,
         })
     } catch (e) {
         next(e)
