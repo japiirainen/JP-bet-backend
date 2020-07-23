@@ -30,6 +30,7 @@
         "jsonwebtoken": "^8.5.1",
         "mongoose": "^5.9.17",
         "morgan": "^1.10.0",
+        "nodemailer": "^6.4.10",
         "ramda": "^0.27.0",
         "yup": "^0.29.1"
     },

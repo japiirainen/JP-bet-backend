@@ -9,5 +9,7 @@ module.exports = {
     secrets: {
         jwt: process.env.JWT_SECRET,
         jwtExp: '7d',
+        emailPass: process.env.EMAIL_PASS,
+        emailUser: process.env.EMAIL_USER,
     },
 }
