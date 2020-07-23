@@ -1,7 +1,9 @@
 const { User, Reset } = require('../resources/user/user.model')
+const { v4: uuidv4 } = require('uuid')
 const jwt = require('jsonwebtoken')
 const config = require('./config')
 const Yup = require('yup')
+const sendResetLink = require('./email')
 
 const schema = Yup.object().shape({
     email: Yup.string().trim().email().required(),
@@ -121,15 +123,17 @@ const verify = async (req, res, next) => {
 //post
 const forgotPassword = async (req, res, next) => {
     try {
-        const user = await await User.findOne(req.body.email)
+        const user = await await User.findOne({ email: req.body.email })
         if (!user) return next()
 
+        const id = uuidv4()
+
         const doc = {
-            id: user._id,
+            id,
             email: user.email,
         }
         await Reset.create(doc)
-        //sendResetLink(user.email, user._id)
+        sendResetLink(user.email, id)
         res.status(200).json({ message: 'success' })
     } catch (e) {
         next(e)

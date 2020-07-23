@@ -14,7 +14,7 @@ const sendResetLink = async (email, id) => {
         from: config.secrets.emailUser,
         to: email,
         subject: 'Reset password instructions',
-        text: `To reset your password, please click on this link: http:/localhost/reset/${id}`,
+        text: `Navigate to this address to go reset your password: http:/localhost:3000/reset/${id}`,
     }
 
     await transporter.sendMail(mailOptions, function (error, info) {
@@ -25,5 +25,5 @@ const sendResetLink = async (email, id) => {
         }
     })
 }
-sendResetLink()
+
 module.exports = sendResetLink

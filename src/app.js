@@ -9,7 +9,13 @@ const { router, pubRouter } = require('./resources/match/match.router')
 const { depositRouter } = require('./resources/deposit/deposit.router')
 const userRouter = require('./resources/user/user.router')
 const betSlipRouter = require('./resources/betslip/betslip.router')
-const { signup, signin, verify } = require('./utils/auth')
+const {
+    signup,
+    signin,
+    verify,
+    forgotPassword,
+    resetPassword,
+} = require('./utils/auth')
 const { notFound, errorHandler } = require('./utils/errorhandler')
 
 const dbConnect = require('../database/db')
@@ -30,6 +36,8 @@ app.use(helmet())
 
 app.post('/signup', signup)
 app.post('/signin', signin)
+app.post('/forgot', forgotPassword)
+app.put('/reset', resetPassword)
 
 app.use('/api/v1/match', pubRouter)
 
