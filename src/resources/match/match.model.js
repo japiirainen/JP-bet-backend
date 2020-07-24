@@ -67,6 +67,13 @@ const matchSchema = new mongoose.Schema(
                     default: 'not resolved',
                 },
             },
+            toWinFirstMap: {
+                result: {
+                    type: String,
+                    enum: ['team1', 'tie', 'team2', 'not resolved'],
+                    default: 'not resolved',
+                },
+            },
         },
     },
     { timestamps: true }

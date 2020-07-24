@@ -8,6 +8,10 @@ const betSlipSchema = new mongoose.Schema(
             default: 'not selected',
             required: true,
         },
+        targetProduct: {
+            type: String,
+            enum: ['onextwo', 'toWinFirstMap'],
+        },
         amount: { type: Number, required: true },
 
         projectedWin: {
