@@ -25,7 +25,7 @@ const app = express()
 const port = config.options.port
 const welcomeMessage = config.options.welcomemsg
 
-dbConnect(process.env.DBURL || 'mongodb://localhost:27017/Bettingsite')
+dbConnect()
 
 app.use(cors())
 app.use(json())
@@ -52,10 +52,12 @@ app.get('/api/v1', (_req, res) => {
     res.status(200).json({ welcomeMessage })
 })
 
+const env = process.env.NODE_ENV
+
 const start = async () => {
     try {
         app.listen(port, () => {
-            console.log(`Listening on: ${port}/api/v1`)
+            console.log(`Listening on: ${port}/api/v1 as: ${env} `)
         })
     } catch (e) {
         console.log(e)

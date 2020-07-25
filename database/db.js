@@ -1,7 +1,11 @@
 const mongoose = require('mongoose')
 require('dotenv').config()
 
-function connect(url = process.env.DBURL) {
+const env = process.env.NODE_ENV
+
+function connect(
+    url = env === 'dev' ? process.env.DBURL_DEV : process.env.DBURL_PROD
+) {
     return new Promise((resolve, reject) => {
         mongoose.connect(url, {
             useNewUrlParser: true,
